@@ -10,7 +10,7 @@ from django.db.models import Case, When
 from .recommendation import Myrecommend
 import numpy as np 
 import pandas as pd
-
+from django.core.paginator import Paginator
 
 # for recommendation
 def recommend(request):
@@ -43,10 +43,17 @@ def recommend(request):
 def index(request):
 	movies = Movie.objects.all()
 	query  = request.GET.get('q')
+	paginated = Paginator(movies, 12)
+	page_number = request.GET.get('page') #Get the requested page number from the URL
+	page = paginated.get_page(page_number)
 	if query:
 		movies = Movie.objects.filter(Q(title__icontains=query)).distinct()
-		return render(request,'web/list.html',{'movies':movies})
-	return render(request,'web/list.html',{'movies':movies})
+		paginated = Paginator(query, 12)
+		page_number = request.GET.get('page')
+		page = paginated.get_page(page_number)
+		return render(request,'web/list.html',{'page':page})
+	return render(request,'web/list.html',{'movies':page})
+
 
 
 # detail view

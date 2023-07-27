@@ -27,7 +27,7 @@
     {% endif %}
     <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-2 col-md-3">
+        <div class="col-sm-2 col-md-3 shadow-lg p-3 mb-5 rounded">
 		<h1>Movies List</h1>
         </div>
         <div class="col-xs-offset-9  mt-3">
@@ -41,14 +41,14 @@
     <div class="row">
             {% if movies %}
             {% for movie in movies %}
-                <div class="col-sm-2 col-md-2 ">
+                <div class="col-sm-2 col-md-2 card" >
                     <div class="thumbnail">
-                        <h4>{{movie.title}}</h4>
+                        <h4 class="text-center">{{movie.title}}</h4>
                         <a href="{% url 'detail' movie.id %}">
                             <img src="{{ movie.movie_logo.url}}" class="img-responsive">
                         </a>
-                        <h5>{{movie.genre}}</h5>
-                        <div class="caption">
+                        <h5 class="text-center">{{movie.genre}}</h5>
+                        <div class="caption text-center">
 
                             <!-- View Details -->
                             <a href="{% url 'detail' movie.id %}" class="btn btn-primary btn-sm" role="button">Give Rating</a>
@@ -62,5 +62,24 @@
         </div>
     
 </div>
+
+<!--This is the pagination navigator-->
+{% if is_paginated %}
+<div>
+    <nav aria-label="Page navigation container">
+    <ul class="pagination justify-content-center">
+
+        {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV</a></li>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link">NEXT &raquo;</a></li>
+        {% endif %}
+
+        </ul>
+    </nav>
+</div>
+{% endif %}
 
 {% endblock %}
