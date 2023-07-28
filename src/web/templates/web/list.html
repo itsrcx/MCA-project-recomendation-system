@@ -28,10 +28,10 @@
     <div class="container-fluid">
     <div class="row">
         <div class="col-sm-2 col-md-3 shadow-lg p-3 mb-5 rounded">
-		<h1>Movies List</h1>
+		<h1>MOVIE LIST</h1>
         </div>
         <div class="col-xs-offset-9  mt-3">
-        <a href="{% url 'recommend' %}" class="btn btn-danger"><strong><h2>Get Recommendation</h2></strong></a>
+        <a href="{% url 'recommend' %}" class="btn btn-danger"><strong class="h1">Get Recommendation</strong></a>
         </div>
     </div>
 	</div>
@@ -64,22 +64,22 @@
 </div>
 
 <!--This is the pagination navigator-->
-{% if is_paginated %}
-<div>
+
+<div class="text-center">
     <nav aria-label="Page navigation container">
     <ul class="pagination justify-content-center">
 
-        {% if page_obj.has_previous %}
-            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV</a></li>
+        {% if movies.has_previous %}
+            <li><a href="?page={{ movies.previous_page_number }}" class="page-link">&laquo; PREV</a></li>
         {% endif %}
 
-        {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link">NEXT &raquo;</a></li>
+        {% if movies.has_next %}
+            <li><a href="?page={{ movies.next_page_number }}" class="page-link">NEXT &raquo;</a></li>
         {% endif %}
-
+        
         </ul>
     </nav>
 </div>
-{% endif %}
+
 
 {% endblock %}

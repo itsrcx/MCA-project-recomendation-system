@@ -51,7 +51,7 @@ def index(request):
 		paginated = Paginator(query, 12)
 		page_number = request.GET.get('page')
 		page = paginated.get_page(page_number)
-		return render(request,'web/list.html',{'page':page})
+		return render(request,'web/list.html',{'query':page})
 	return render(request,'web/list.html',{'movies':page})
 
 
