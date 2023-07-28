@@ -3,7 +3,7 @@ from django.contrib.auth import logout
 from django.shortcuts import render,get_object_or_404,redirect
 from django.db.models import Q
 from django.http import Http404
-from .models import Movie,Myrating
+from .models import Movie,Myrating, User
 from django.contrib import messages
 from .forms import UserForm
 from django.db.models import Case, When
@@ -48,10 +48,7 @@ def index(request):
 	page = paginated.get_page(page_number)
 	if query:
 		movies = Movie.objects.filter(Q(title__icontains=query)).distinct()
-		paginated = Paginator(query, 12)
-		page_number = request.GET.get('page')
-		page = paginated.get_page(page_number)
-		return render(request,'web/list.html',{'query':page})
+		return render(request,'web/list.html',{'movies':movies})
 	return render(request,'web/list.html',{'movies':page})
 
 
